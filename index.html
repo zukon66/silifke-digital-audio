@@ -1,222 +1,567 @@
 <!doctype html>
-<html lang="tr">
+<html lang="tr" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Silifke Dijital Ses Platformu | Proje Taslağı</title>
+  <title>Silifke Dijital Ses Platformu | Taslak</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0f1629;
-      --panel: #121c33;
-      --panel-2: #10182c;
-      --text: #e8eefc;
-      --muted: #9cb3d8;
-      --accent: #5dd1d3;
-      --accent-2: #8bd0ff;
-      --border: rgba(255,255,255,0.08);
+      --bg: #0b1222;
+      --fg: #e8edf7;
+      --muted: #9fb2cc;
+      --card: rgba(255, 255, 255, 0.04);
+      --card-strong: rgba(255, 255, 255, 0.08);
+      --accent: #7ce7c2;
+      --accent-2: #6ab8ff;
+      --border: rgba(255, 255, 255, 0.08);
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --radius: 18px;
+    }
+    :root[data-theme="light"] {
+      --bg: #f6f8fb;
+      --fg: #0f182b;
+      --muted: #4f647d;
+      --card: rgba(255, 255, 255, 0.9);
+      --card-strong: rgba(255, 255, 255, 1);
+      --accent: #148f77;
+      --accent-2: #1565c0;
+      --border: rgba(15, 24, 43, 0.08);
+      --shadow: 0 14px 38px rgba(0, 0, 0, 0.12);
     }
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: 'Manrope', 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: radial-gradient(120% 120% at 20% 20%, rgba(93,209,211,0.08), transparent),
-                  radial-gradient(120% 120% at 80% 0%, rgba(139,208,255,0.12), transparent),
+      font-family: 'Space Grotesk', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: radial-gradient(120% 120% at 18% 20%, rgba(124,231,194,0.09), transparent),
+                  radial-gradient(100% 120% at 80% 0%, rgba(106,184,255,0.12), transparent),
                   var(--bg);
-      color: var(--text);
+      color: var(--fg);
       line-height: 1.6;
+      min-height: 100vh;
     }
-    header {
-      padding: 32px 24px 12px;
-      max-width: 1080px;
+    .container {
+      max-width: 1180px;
       margin: 0 auto;
+      padding: 0 24px;
     }
-    .badge {
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(16px);
+      background: rgba(10, 16, 32, 0.5);
+      border-bottom: 1px solid var(--border);
+    }
+    .navbar[data-theme="light"] {
+      background: rgba(255, 255, 255, 0.8);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      justify-content: space-between;
+      padding: 14px 0;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    .logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: grid;
+      place-items: center;
+      color: #0b1222;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      font-weight: 500;
+    }
+    .nav-links a.active {
+      color: var(--fg);
+      background: var(--card-strong);
+      border-color: var(--border);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    button, select {
+      font-family: inherit;
+    }
+    .btn {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 10px 16px;
+      background: var(--card);
+      color: var(--fg);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #0b1222;
+      border: none;
+      box-shadow: 0 18px 30px rgba(0,0,0,0.25);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 20px 38px rgba(0,0,0,0.28);
+    }
+    .btn-ghost {
+      background: transparent;
+      border-color: var(--border);
+      color: var(--fg);
+    }
+    main { padding: 24px 0 60px; }
+    section {
+      margin-bottom: 28px;
+      background: linear-gradient(145deg, var(--card), var(--card-strong));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 22px 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+    h1 { font-size: clamp(32px, 4vw, 44px); margin: 10px 0 8px; letter-spacing: -0.8px; }
+    h2 { margin: 0 0 12px; font-size: clamp(22px, 3vw, 28px); letter-spacing: -0.4px; }
+    p { margin: 0 0 12px; color: var(--muted); }
+    .hero { display: grid; gap: 16px; padding: 28px 22px; position: relative; overflow: hidden; }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+    .hero-grid { display: grid; gap: 16px; grid-template-columns: 1.1fr 0.9fr; align-items: center; }
+    .chip {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       padding: 8px 12px;
-      background: rgba(93,209,211,0.12);
-      border: 1px solid var(--border);
       border-radius: 999px;
+      background: rgba(124,231,194,0.12);
+      border: 1px solid var(--border);
       color: var(--accent);
       font-weight: 600;
-      letter-spacing: 0.2px;
     }
-    h1 {
-      margin: 14px 0 6px;
-      font-size: 32px;
-      letter-spacing: -0.5px;
-    }
-    .subtitle {
-      color: var(--muted);
-      font-weight: 500;
-      margin-bottom: 18px;
-    }
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 12px 0 8px;
-    }
-    nav a {
-      text-decoration: none;
-      color: var(--muted);
-      padding: 8px 12px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      transition: all 0.2s ease;
-      background: rgba(255,255,255,0.02);
-    }
-    nav a:hover {
-      color: var(--text);
-      border-color: rgba(93,209,211,0.6);
-      box-shadow: 0 0 0 1px rgba(93,209,211,0.25);
-    }
-    main {
-      max-width: 1080px;
-      margin: 0 auto 48px;
-      padding: 0 24px 32px;
-      display: grid;
-      gap: 18px;
-    }
-    section {
-      background: linear-gradient(145deg, var(--panel), var(--panel-2));
-      border: 1px solid var(--border);
+    .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .stat-row { display: flex; gap: 16px; flex-wrap: wrap; color: var(--muted); }
+    .stat {
+      min-width: 120px;
+      padding: 12px 14px;
       border-radius: 14px;
-      padding: 18px 18px 16px;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
     }
-    section h2 {
-      margin: 0 0 10px;
-      font-size: 20px;
-      letter-spacing: -0.2px;
+    .stat strong { display: block; color: var(--fg); font-size: 18px; }
+    .grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     }
-    p { margin: 0 0 10px; }
-    ul { margin: 0; padding-left: 18px; color: var(--muted); }
+    .card {
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      color: var(--muted);
+      font-weight: 600;
+      border: 1px solid var(--border);
+    }
+    ul { margin: 6px 0 0; padding-left: 18px; color: var(--muted); }
     li { margin-bottom: 6px; }
-    .tagline { color: var(--accent-2); font-weight: 600; }
+    .pill {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    select {
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--fg);
+    }
+    .feed-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .feed-card {
+      padding: 14px;
+      border-radius: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .feed-card h3 { margin: 0 0 6px; font-size: 18px; }
+    .feed-meta { display: flex; gap: 8px; flex-wrap: wrap; color: var(--muted); font-size: 14px; }
+    .player {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--card), var(--card-strong));
+      border: 1px solid var(--border);
+    }
+    .player button {
+      min-width: 44px;
+      min-height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #0b1222;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease;
+    }
+    .player button:hover { transform: scale(1.03); }
     .footer {
       text-align: center;
       color: var(--muted);
-      padding: 12px 24px 24px;
+      padding: 18px;
       border-top: 1px solid var(--border);
-      max-width: 1080px;
-      margin: 0 auto;
+      background: linear-gradient(145deg, var(--card), var(--card-strong));
     }
-    @media (max-width: 720px) {
-      h1 { font-size: 26px; }
-      section { padding: 16px; }
+    @media (max-width: 860px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="badge">Silifke Dijital Ses Platformu • AI Destekli Şehir Radyosu</div>
-    <h1>Sahaya İnen Dijital Ses Üssü</h1>
-    <div class="subtitle">Kulübün stratejik vitrini: QR tetiklemeli, mobil uyumlu, ses tabanlı şehir rehberi.</div>
-    <nav>
-      <a href="#1">1. Proje Özeti</a>
-      <a href="#2">2. Problemin Tanımı</a>
-      <a href="#3">3. Çözüm Yaklaşımı</a>
-      <a href="#4">4. Kullanım Senaryoları</a>
-      <a href="#5">5. Sistem Bileşenleri</a>
-      <a href="#6">6. Yapay Zeka</a>
-      <a href="#7">7. MVP</a>
-      <a href="#8">8. Gelişim Aşamaları</a>
-      <a href="#9">9. Stratejik Katkı</a>
-      <a href="#10">10. Sonuç</a>
-    </nav>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">S</div>
+        <span>Silifke Dijital Ses</span>
+      </div>
+      <nav class="nav-links" aria-label="B&#246;l&#252;mler">
+        <a href="#hero" data-nav="hero">Giri&#351;</a>
+        <a href="#problem" data-nav="problem">Problem</a>
+        <a href="#cozum" data-nav="cozum">&#199;&#246;z&#252;m</a>
+        <a href="#senaryolar" data-nav="senaryolar">Senaryolar</a>
+        <a href="#feed" data-nav="feed">Yay&#305;n Ak&#305;&#351;&#305;</a>
+        <a href="#mvp" data-nav="mvp">MVP</a>
+        <a href="#player" data-nav="player">&#350;imdi Dinle</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="btn btn-ghost" type="button" data-theme-toggle aria-label="Tema de&#287;i&#351;tir">Tema</button>
+        <a class="btn btn-primary" href="#feed">QR Yay&#305;na Git</a>
+      </div>
+    </div>
   </header>
-  <main>
-    <section id="1">
-      <h2>1. Proje Özeti</h2>
-      <p>Silifke Dijital Ses Platformu, kentin tarihi ve güncel hikâyelerini mobil uyumlu web üzerinden QR kodlarla tetiklenen kısa sesli içerik olarak sunan, sade ama genişletilebilir bir şehir radyosu altyapısıdır; ana ürün olma iddiası yok, kulübün dijital görünürlüğünü ve teknik yetkinliğini sahada kanıtlayan stratejik bir üs görevi görür.</p>
+
+  <main class="container">
+    <section class="hero" id="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="chip">AI Destekli &#8226; &#350;ehir Radyosu</div>
+          <h1>Sahaya inen dijital ses &#252;ss&#252;</h1>
+          <p>Kentin tarihi, k&#252;lt&#252;r&#252; ve g&#252;ncel nabz&#305;; mobil uyumlu web, QR tetiklemeli ses kaps&#252;lleri ve geli&#351;tirilebilir altyap&#305; ile kul&#252;b&#252;n vitrini.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#feed" data-cta>Yay&#305;n ak&#305;&#351;&#305;na bak</a>
+            <a class="btn btn-ghost" href="#cozum">Yakla&#351;&#305;m&#305; g&#246;r</a>
+          </div>
+          <div class="stat-row">
+            <div class="stat"><strong>20</strong><span>&#199;ekirdek ses i&#231;eri&#287;i</span></div>
+            <div class="stat"><strong>6 Hafta</strong><span>Faz 1 yay&#305;na haz&#305;r</span></div>
+            <div class="stat"><strong>QR</strong><span>Sahada g&#246;r&#252;n&#252;r</span></div>
+          </div>
+        </div>
+        <div class="card" aria-hidden="true">
+          <p class="pill">&#214;zet</p>
+          <p>Mobil uyumlu, QR kod tetiklemeli, ses tabanl&#305; &#351;ehir rehberi; teknik vitrin ve sahada kan&#305;tlanan kul&#252;p &#252;r&#252;n&#252;.</p>
+          <ul>
+            <li>Kullan&#305;c&#305;: turist, yerel halk, organizasyon</li>
+            <li>&#304;&#231;erik: 1-2 dakikal&#305;k ses + transkript</li>
+            <li>AI: edit&#246;re destek, ama&#231; de&#287;il ara&#231;</li>
+            <li>Altyap&#305;: PWA, hafif CMS, analitik</li>
+          </ul>
+        </div>
+      </div>
     </section>
-    <section id="2">
-      <h2>2. Problemin Tanımı</h2>
+
+    <section id="problem">
+      <h2>Problemin Tan&#305;m&#305;</h2>
       <ul>
-        <li>Silifke’nin zengin hikâyeleri dijitalde dağınık, turist ve yerel halk için kolay erişilebilir değil.</li>
-        <li>Fiziksel noktalarda güncel bilgi ve duyuru akışı eksik; basılı materyal hızlı eskiyor.</li>
-        <li>Kulübün teknik kapasitesi ve görünürlüğü yerelde yeterince hissedilmiyor.</li>
+        <li>Silifke&#8217;nin hikayeleri dijitalde da&#287;&#305;n&#305;k; turist ve yerel i&#231;in eri&#351;im zor.</li>
+        <li>Fiziksel noktalarda g&#252;ncel bilgi/duyuru ak&#305;&#351;&#305; yok; bas&#305;l&#305; materyal h&#305;zla eskiyor.</li>
+        <li>Kul&#252;b&#252;n teknik kapasitesi sahada g&#246;r&#252;n&#252;r de&#287;il.</li>
       </ul>
     </section>
-    <section id="3">
-      <h2>3. Çözüm Yaklaşımı</h2>
-      <ul>
-        <li>QR kod: Tarihi/doğa/etkinlik noktalarına yerleştirilen kodlarla içerik erişimi.</li>
-        <li>Mobil web: Kurulumsuz, hafif, düşük veri tüketimli arayüz.</li>
-        <li>Sesli içerik: 1-2 dakikalık kapsüller; metin desteği ve transkript.</li>
-        <li>Geliştirilebilir yapı: Modüler içerik ekleme, çok dilli destek, entegrasyonlara açık.</li>
-      </ul>
+
+    <section id="cozum">
+      <h2>&#199;&#246;z&#252;m Yakla&#351;&#305;m&#305;</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="badge">QR eri&#351;im</div>
+          <p>Tarihi/do&#287;a/etkinlik noktalar&#305;na konumlu QR kodlarla h&#305;zl&#305; eri&#351;im.</p>
+        </div>
+        <div class="card">
+          <div class="badge">Mobil web</div>
+          <p>Kurulumsuz, hafif PWA deneyimi; offline k&#305;smi &#246;nbellek.</p>
+        </div>
+        <div class="card">
+          <div class="badge">Ses + transkript</div>
+          <p>1-2 dakikal&#305;k kaps&#252;ller, metin deste&#287;i ve eri&#351;ilebilirlik.</p>
+        </div>
+        <div class="card">
+          <div class="badge">Geli&#351;tirilebilir</div>
+          <p>Mod&#252;ler i&#231;erik ekleme, &#231;ok dilli haz&#305;r, entegrasyonlara a&#231;&#305;k mimari.</p>
+        </div>
+      </div>
     </section>
-    <section id="4">
-      <h2>4. Temel Kullanım Senaryoları</h2>
-      <ul>
-        <li>Turist: Kale/antik kentte QR okutup kısa rehber dinler, harita ve rota alır.</li>
-        <li>Yerel halk: Güncel duyuruları (etkinlik, kapanış, festival) sesli/metin olarak dinler.</li>
-        <li>Etkinlik/duyuru: Belediye/organizasyon QR’ı kullanarak konum bazlı bilgilendirme yapar.</li>
-      </ul>
+
+    <section id="senaryolar">
+      <h2>Temel Kullan&#305;m Senaryolar&#305;</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="badge">Turist</div>
+          <p>QR okutup h&#305;zl&#305; rehber, transkript, harita/rota ba&#287;lant&#305;s&#305;.</p>
+        </div>
+        <div class="card">
+          <div class="badge">Yerel halk</div>
+          <p>Etkinlik ve kapan&#305;&#351; duyurular&#305;n&#305; sesli/metin dinler.</p>
+        </div>
+        <div class="card">
+          <div class="badge">Organizat&#246;r</div>
+          <p>Konum bazl&#305; bilgi yay&#305;n&#305; i&#231;in haz&#305;r QR ve i&#231;erik alan&#305;.</p>
+        </div>
+      </div>
     </section>
-    <section id="5">
-      <h2>5. Sistem Bileşenleri</h2>
-      <ul>
-        <li>Kullanıcı Arayüzü (Frontend): PWA tabanlı mobil öncelikli sayfalar; offline kısmi önbellek; basit oynatıcı ve transkript görünümü.</li>
-        <li>İçerik Yapısı: Kısa ses klipleri (MP3/OGG), başlık, özet, dil, kategori (tarih, kültür, duyuru), konum ID, süre.</li>
-        <li>Basit Yönetim Mantığı (ilk aşama): Statik dosya + hafif CMS benzeri YAML/JSON içerik deposu; manuel içerik yayını için küçük admin paneli veya script.</li>
-      </ul>
+
+    <section id="feed">
+      <h2>Yay&#305;n Ak&#305;&#351;&#305; (&#246;rnek veri)</h2>
+      <div class="controls">
+        <label for="filter">Filtre:</label>
+        <select id="filter">
+          <option value="all">T&#252;m&#252;</option>
+          <option value="tarih">Tarih</option>
+          <option value="kultur">K&#252;lt&#252;r</option>
+          <option value="duyuru">Duyuru</option>
+        </select>
+        <label for="sort">S&#305;rala:</label>
+        <select id="sort">
+          <option value="date">Tarihe g&#246;re (yeni)</option>
+          <option value="title">Ba&#351;l&#305;&#287;a g&#246;re (A-Z)</option>
+        </select>
+      </div>
+      <div class="feed-grid" id="feed-grid" aria-live="polite"></div>
     </section>
-    <section id="6">
-      <h2>6. Yapay Zeka Kullanımı</h2>
-      <ul>
-        <li>İlk aşamada sınırlı ve kontrollü: Metin temizleme, transkript düzeltme ve kısa özet üretimi için editör destek aracı; final içerik mutlaka insan onayından geçer.</li>
-        <li>İkinci aşamada ölçeklenebilir: Çok dilli çeviri önerisi, ses sentezi varyantları, içerik etiketleme otomasyonu.</li>
-        <li class="tagline">AI araçtır, amaç değildir: Editöre hız kazandırır; içerik ve ton kontrolü insanın elinde kalır.</li>
-      </ul>
+
+    <section id="nasil">
+      <h2>Nas&#305;l &#199;al&#305;&#351;&#305;r (k&#305;sa)</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="badge">1. &#304;&#231;erik</div>
+          <p>Ses + transkript olu&#351;turulur; edit&#246;r onay&#305; zorunlu.</p>
+        </div>
+        <div class="card">
+          <div class="badge">2. Yay&#305;n</div>
+          <p>JSON/YAML deposu ve hafif panel ile QR&#8217;ya ba&#287;lan&#305;r.</p>
+        </div>
+        <div class="card">
+          <div class="badge">3. Analitik</div>
+          <p>Oynatma ve QR kaynak parametresi ile etki &#246;l&#231;&#252;l&#252;r.</p>
+        </div>
+      </div>
     </section>
-    <section id="7">
-      <h2>7. MVP (İlk Versiyon) Kapsamı</h2>
+
+    <section id="player">
+      <h2>&#350;imdi Dinle (mini player mock)</h2>
+      <div class="player">
+        <div>
+          <div class="badge">Demo</div>
+          <div><strong id="track-title">Silifke Kalesi Ses Turu</strong></div>
+          <div class="feed-meta" id="track-meta">1:52 &#8226; Tarih &#8226; TR</div>
+        </div>
+        <button type="button" aria-pressed="false" aria-label="Oynat/Durdur" id="play-toggle">&#9654;</button>
+      </div>
+    </section>
+
+    <section id="mvp">
+      <h2>MVP (&#304;lk Versiyon) Kapsam&#305;</h2>
       <p><strong>Olacaklar:</strong></p>
       <ul>
-        <li>Mobil uyumlu landing + içerik listesi, QR ile derin link açılışı.</li>
-        <li>15-20 adet çekirdek ses içeriği (TR), transkript ve başlık.</li>
-        <li>Basit oynatıcı, temel analitik (tıklama/oynatma sayısı, QR kaynak parametresi).</li>
-        <li>Statik içerik deposu (JSON/YAML) ve hafif yayın süreci; temel güvenlik (rate limit, CORS).</li>
+        <li>Mobil uyumlu landing + i&#231;erik listesi, QR ile derin link a&#231;&#305;l&#305;&#351;&#305;.</li>
+        <li>15-20 &#231;ekirdek ses (TR), transkript ve ba&#351;l&#305;k.</li>
+        <li>Basit oynat&#305;c&#305;, temel analitik (t&#305;klama/oynatma, QR kaynak parametresi).</li>
+        <li>Statik i&#231;erik deposu (JSON/YAML) ve hafif yay&#305;n s&#252;reci; temel g&#252;venlik.</li>
       </ul>
       <p><strong>Olmayacaklar:</strong></p>
       <ul>
-        <li>Çok dilli tam kapsam, kişiselleştirme, öneri motoru.</li>
-        <li>Gelişmiş moderasyon, kullanıcı oluşturduğu içerik.</li>
-        <li>Native uygulama, kapsamlı offline harita.</li>
-        <li>Kurumsal seviye analitik/AB testleri, bildirim altyapısı.</li>
+        <li>&#199;ok dilli tam kapsam, ki&#351;iselle&#351;tirme, &#246;neri motoru.</li>
+        <li>Geli&#351;mi&#351; moderasyon, kullan&#305;c&#305; olu&#351;turdu&#287;u i&#231;erik.</li>
+        <li>Native uygulama, kapsam&#305; offline harita.</li>
+        <li>Kurumsal analitik/AB testleri, bildirim altyap&#305;s&#305;.</li>
       </ul>
-    </section>
-    <section id="8">
-      <h2>8. Gelişim Aşamaları (Faz 1 – Faz 2 – Faz 3)</h2>
-      <ul>
-        <li>Faz 1 (0-6 hafta): MVP arayüz, QR akışı, çekirdek ses paketleri, temel analitik.</li>
-        <li>Faz 2 (6-12 hafta): Çok dilli içerik, ses sentezi varyantları, kategori sayfaları, basit CMS arayüzü, erişilebilirlik iyileştirmeleri.</li>
-        <li>Faz 3 (12-20 hafta): Harita/rota entegrasyonu, gelişmiş analitik, etkinlik takvimi, partner entegrasyonları (belediye, müze), otomatik etiketleme.</li>
-      </ul>
-    </section>
-    <section id="9">
-      <h2>9. Projenin Kulüp İçin Stratejik Katkısı</h2>
-      <ul>
-        <li>Görünürlük: Sahada QR’larla, dijitalde içerikle kulüp markası görünür olur.</li>
-        <li>Süreklilik: Düzenli içerik güncellemeleri kulübün nabzını canlı tutar.</li>
-        <li>Teknik vitrin: PWA, ses işleme ve hafif CMS ile somut teknik yetkinlik sergisi.</li>
-        <li>Topluluk etkisi: Yerel kurumlar ve gönüllülerle ortak içerik üretimi; bağ güçlenir.</li>
-      </ul>
-    </section>
-    <section id="10">
-      <h2>10. Sonuç ve Kapanış</h2>
-      <p>Silifke Dijital Ses Platformu, “sahaya inen teknoloji kulübü” vizyonunun uygulanabilir, düşük maliyetli ve genişletilebilir bir göstergesi. İlk sürümle hızlı değer üretip, kontrollü AI ve modüler altyapıyla kademeli olarak büyüyebiliriz; ekipten beklenti, içerik ve teknik akışı basit tutarak sahada hızla yayına çıkmak.</p>
     </section>
   </main>
-  <div class="footer">
-    Silifke Dijital Ses Platformu — QR tetiklemeli, mobil ve ses tabanlı şehir radyosu.
-  </div>
+
+  <footer class="footer">
+    Silifke Dijital Ses Platformu &#8212; QR tetiklemeli, mobil ve ses tabanl&#305; &#351;ehir radyosu.
+  </footer>
+
+  <script>
+    (function() {
+      const docEl = document.documentElement;
+      const themeToggle = document.querySelector('[data-theme-toggle]');
+      const navLinks = Array.from(document.querySelectorAll('.nav-links a'));
+      const sections = navLinks.map(link => document.querySelector(link.getAttribute('href')));
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+      function setTheme(theme) {
+        docEl.dataset.theme = theme;
+        localStorage.setItem('theme', theme);
+      }
+      function initTheme() {
+        const saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') {
+          setTheme(saved);
+        } else {
+          setTheme(prefersDark.matches ? 'dark' : 'light');
+        }
+      }
+      initTheme();
+      themeToggle.addEventListener('click', () => {
+        const next = docEl.dataset.theme === 'dark' ? 'light' : 'dark';
+        setTheme(next);
+      });
+
+      // Scroll spy
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const id = entry.target.id;
+          const link = navLinks.find(l => l.dataset.nav === id);
+          if (link) {
+            if (entry.isIntersecting) {
+              navLinks.forEach(l => l.classList.remove('active'));
+              link.classList.add('active');
+            }
+          }
+        });
+      }, { threshold: 0.5 });
+      sections.forEach(sec => { if (sec) observer.observe(sec); });
+
+      // CTA smooth scroll fallback
+      document.querySelectorAll('[data-cta]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const target = document.querySelector(btn.getAttribute('href'));
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+
+      // Live feed data
+      const feedData = [
+        { title: 'Silifke Kalesi Ses Turu', type: 'tarih', date: '2025-01-05', length: '1:52' },
+        { title: 'G&#246;ksu Deltas&#305; Ku&#351; Rotas&#305;', type: 'kultur', date: '2024-12-28', length: '2:05' },
+        { title: 'Ta&#351;ucu Liman&#305; G&#252;ne&#351; Bat&#305;m&#305;', type: 'kultur', date: '2025-01-02', length: '1:30' },
+        { title: 'Yerel Festival Duyurusu', type: 'duyuru', date: '2024-12-30', length: '0:45' },
+        { title: 'Mozaik M&#252;zesi K&#305;sa Tur', type: 'tarih', date: '2025-01-10', length: '2:20' }
+      ];
+      const feedGrid = document.getElementById('feed-grid');
+      const filterSel = document.getElementById('filter');
+      const sortSel = document.getElementById('sort');
+
+      function renderFeed() {
+        const filter = filterSel.value;
+        const sort = sortSel.value;
+        let items = [...feedData];
+        if (filter !== 'all') {
+          items = items.filter(item => item.type === filter);
+        }
+        if (sort === 'date') {
+          items.sort((a, b) => new Date(b.date) - new Date(a.date));
+        } else if (sort === 'title') {
+          items.sort((a, b) => a.title.localeCompare(b.title, 'tr'));
+        }
+        feedGrid.innerHTML = '';
+        items.forEach(item => {
+          const card = document.createElement('article');
+          card.className = 'feed-card';
+          card.innerHTML = `
+            <div class="badge">${item.type}</div>
+            <h3>${item.title}</h3>
+            <div class="feed-meta">${new Date(item.date).toLocaleDateString('tr-TR')} &#8226; ${item.length}</div>
+            <p style="color: var(--muted); margin: 8px 0 0;">QR tetiklemeli ses kaps&#252;l&#252;</p>
+          `;
+          feedGrid.appendChild(card);
+        });
+      }
+      filterSel.addEventListener('change', renderFeed);
+      sortSel.addEventListener('change', renderFeed);
+      renderFeed();
+
+      // Mini player mock
+      const playToggle = document.getElementById('play-toggle');
+      let playing = false;
+      playToggle.addEventListener('click', () => {
+        playing = !playing;
+        playToggle.textContent = playing ? '⏸' : '▶';
+        playToggle.setAttribute('aria-pressed', playing ? 'true' : 'false');
+        const meta = document.getElementById('track-meta');
+        meta.textContent = playing ? '&#199;al&#305;yor &#8226; 1:52 &#8226; Tarih &#8226; TR' : '1:52 &#8226; Tarih &#8226; TR';
+      });
+    })();
+  </script>
 </body>
 </html>
